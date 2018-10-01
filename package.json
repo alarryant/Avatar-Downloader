@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/alarryant/Avatar-Downloader/issues"
   },
-  "homepage": "https://github.com/alarryant/Avatar-Downloader#readme"
+  "homepage": "https://github.com/alarryant/Avatar-Downloader#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
