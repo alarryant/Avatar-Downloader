@@ -1,6 +1,7 @@
 var request = require('request');
 var secrets = require('./secrets.js');
 var fs = require('fs');
+var commandLine = require(process.argv.slice(2));
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
