@@ -1,6 +1,7 @@
 var request = require('request');
 var secrets = require('./secrets.js');
 var fs = require('fs');
+// throw error if no command line input for arguments
 var commandLine = require(process.argv.slice(2));
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -22,17 +23,15 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-
+// take formatted JSON data (array of objects) and passes avatar_url and login as arguments for downloadImageByURL
 function getAvatarUrls(formattedData) {
-  console.log("This is formatted data: ", formattedData);
   return formattedData.forEach(function(contributor) {
+    // precede contributor.login with avatars/ to direct downloads into the right directory
     downloadImageByURL(contributor.avatar_url, "avatars/" + contributor.login + ".jpeg");
   });
 }
 
 function downloadImageByURL(url, filePath) {
-  // filepath is avatars/login ID
-  // url is my avatar_url
   request.get(url)
        .on('error', function (err) {
          throw err;
@@ -49,7 +48,7 @@ function downloadImageByURL(url, filePath) {
       .pipe(fs.createWriteStream(filePath));
 }
 
-
+// repoOwner is process.argv[2] and repoName is process.argv[3]
 getRepoContributors(process.argv[2], process.argv[3], function(err, result) {
   console.log("Errors:", err);
   console.log("Results:", result);
